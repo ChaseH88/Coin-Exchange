@@ -1,16 +1,31 @@
 import { FC } from 'react';
-import styled from 'styled-components';
-
-const TestStyle = styled.h1`
-  color: #000080;
-`;
+import { useWeb3 } from '@3rdweb/hooks';
+import { formatAddress } from 'utilities';
 
 const Home: FC = () => {
+
+  const { address, connectWallet } = useWeb3();
+
+  const handleConnectWallet = () => connectWallet('injected');
+
   return (
     <div>
-      <TestStyle>
-        Next App
-      </TestStyle>
+      <div>
+        <h1>
+          Next App
+        </h1>
+      </div>
+      <div>
+        {address ?
+          <span>
+            {formatAddress(address)}
+          </span>
+          :
+          <button onClick={handleConnectWallet}>
+            Connect Wallet
+          </button>
+        }
+      </div>
     </div>
   )
 }
