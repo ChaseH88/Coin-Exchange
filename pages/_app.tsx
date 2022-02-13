@@ -1,6 +1,13 @@
 import { AppProps } from 'next/app';
 import { ThirdwebWeb3Provider } from '@3rdweb/hooks';
 
+// Components
+import { Layout } from 'components/Layout';
+
+// Styles
+import { ThemeProvider } from 'styled-components';
+import { theme } from 'utilities/theme';
+
 const supportedChainIds: number[] = [4];
 const connectors = {
   injected: {}
@@ -15,9 +22,11 @@ const App = ({ Component, pageProps }: AppProps) => (
       supportedChainIds={supportedChainIds}
       connectors={connectors}
     >
-      <div className='container'>
-        <Component {...pageProps} />
-      </div>
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
     </ThirdwebWeb3Provider>
   </>
 )
