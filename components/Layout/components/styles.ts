@@ -19,6 +19,31 @@ export const HeaderStyle = styled.header`
     }
   }
 
+  // Wallet Connected Message
+  .address {
+    display: inline-block;
+    text-align: center;
+
+    span {
+      display: block;
+
+      &.connected:first-child {
+        color: #1bda1b;
+      }
+
+      &:first-child {
+        color: #ff8383;
+        font-size: .8em;
+        margin: 0 0 3px;
+      }
+      &:nth-child(2) {
+        font-weight: bold;
+        margin: 0 0 3px;
+      }
+    }
+  }
+
+  // BreadCrumbs
   & .breadcrumbs {
     background: ${({ theme: { colors: { darkBlackGreen2 } } }) => darkBlackGreen2};
     padding: ${headerPadding}em;

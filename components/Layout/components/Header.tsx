@@ -7,6 +7,7 @@ import { HeaderStyle } from './styles';
 // Utilities
 import { formatAddress } from 'utilities/scripts';
 import { Button } from "components/General/Button";
+import classNames from "classnames";
 
 const Header: FC = () => {
 
@@ -21,27 +22,27 @@ const Header: FC = () => {
             Page
           </div>
           <div className="right">
-            {address ?
-              <>
-                <Button
-                  onClick={null}
-                  text={'Send / Receive'}
-                />
+            {address && (
+              <Button
+                onClick={null}
+                text={'Send / Receive'}
+              />
+            )}
+            <div className='address'>
+              <span className={classNames({ connected: address })}>
+                {address ? 'Wallet' : 'Not'} Connected
+              </span>
+              {address ?
                 <span>
                   {formatAddress(address)}
                 </span>
-              </>
-              :
-              <>
+                :
                 <Button
                   onClick={handleConnectWallet}
                   text={'Connect'}
                 />
-                <button onClick={handleConnectWallet}>
-                  Connect
-                </button>
-              </>
-            }
+              }
+            </div>
           </div>
         </div>
         <div className='breadcrumbs'>

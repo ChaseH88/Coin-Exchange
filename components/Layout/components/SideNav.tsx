@@ -1,3 +1,4 @@
+import { Heading } from "components/General/Heading";
 import { FC } from "react";
 
 // Styles
@@ -12,9 +13,7 @@ const SideNav: FC = () => (
         </div>
         <nav>
           <div className="title">
-            <h3>
-              Main Menu
-            </h3>
+            <Heading size='h1' title='Main Menu' />
           </div>
           <div className="links">
             <ul>

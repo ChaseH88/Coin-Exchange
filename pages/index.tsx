@@ -11,11 +11,8 @@ const Home: FC = () => {
   return (
     <div>
       <div>
-        <h1>
-          Next App
-        </h1>
         <p>
-          Content!
+          Home Page
         </p>
       </div>
       <div>
