@@ -47,7 +47,10 @@ export const HeaderStyle = styled.header`
   // BreadCrumbs
   & .breadcrumbs {
     background: ${({ theme: { colors: { darkBlackGreen2 } } }) => darkBlackGreen2};
-    padding: ${headerPadding}em;
+    padding: 0 ${headerPadding}em;
+    height: 3em;
+    display: flex;
+    align-items: center;
   }
 
 `;

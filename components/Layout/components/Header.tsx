@@ -8,18 +8,36 @@ import { HeaderStyle } from './styles';
 import { formatAddress } from 'utilities/scripts';
 import { Button } from "components/General/Button";
 import classNames from "classnames";
+import { useRouter } from "next/router";
+import { Heading } from "components/General/Heading";
 
 const Header: FC = () => {
 
   const { address, connectWallet, balance } = useWeb3();
+  const router = useRouter();
+
   const handleConnectWallet = () => connectWallet('injected');
+
+  const pageNames = {
+    '/': 'Home',
+    '/dashboard': 'Dashboard',
+    '/prices': 'Prices',
+    '/contact': 'Contact'
+  };
 
   return (
     <>
       <HeaderStyle>
         <div className="container">
           <div className="left">
-            Page
+            <Heading
+              size='h1'
+              title={pageNames[router.asPath] ?
+                pageNames[router.asPath] :
+                'Coin Exchange'
+              }
+              margin='0'
+            />
           </div>
           <div className="right">
             {address && (
@@ -46,7 +64,9 @@ const Header: FC = () => {
           </div>
         </div>
         <div className='breadcrumbs'>
-          breadcrumbs
+          {router.asPath !== '/' && (
+            router.asPath
+          )}
         </div>
       </HeaderStyle>
     </>
