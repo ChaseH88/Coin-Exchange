@@ -19,7 +19,7 @@ export const LayoutStyle = styled.div`
     & > .right {
       background: ${({ theme: { colors: { darkBlackGreen } } }) => darkBlackGreen};
       flex: 1 1 80%;
-      ${grid(1)};
+      ${grid(1, true)};
 
       #content {
         padding: 1em;
