@@ -13,7 +13,6 @@ export const LayoutStyle = styled.div`
     & > .left {
       background: ${({ theme: { colors: { blackGreen } } }) => blackGreen};
       flex: 0 0 20%;
-      padding: 1em;
     }
 
     & > .right {

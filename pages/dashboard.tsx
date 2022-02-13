@@ -4,7 +4,7 @@ const Home: FC = () => {
   return (
     <div>
       <p>
-        Home Page
+        Dashboard
       </p>
     </div>
   )
