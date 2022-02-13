@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { grid } from 'utilities/styles/helpers';
 
 export const LayoutStyle = styled.div`
 
@@ -18,9 +19,24 @@ export const LayoutStyle = styled.div`
     & > .right {
       background: ${({ theme: { colors: { darkBlackGreen } } }) => darkBlackGreen};
       flex: 1 1 80%;
+      ${grid(1)};
 
       #content {
         padding: 1em;
+        overflow: hidden scroll;
+
+        &::-webkit-scrollbar{
+          width:.9em;
+          border-left: 1px solid ${({ theme: { colors: { blackGreen } } }) => blackGreen};
+        }
+        &::-webkit-scrollbar-thumb{
+          border-radius: 2em;
+          background-color: ${({ theme: { colors: { blue } } }) => blue};
+
+          &:vertical:hover {
+            background-color: ${({ theme: { colors: { lightBlue } } }) => lightBlue};
+          }
+        }
       }
     }
   }

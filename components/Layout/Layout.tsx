@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 // Styles
-import { GlobalStyle } from 'utilities/_global-styles';
+import { GlobalStyle } from 'utilities/styles/_global-styles';
 import { LayoutStyle } from './styles';
 
 // Components

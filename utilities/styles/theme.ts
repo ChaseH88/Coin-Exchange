@@ -17,7 +17,9 @@ export const theme = {
     lightBlackGreen: '#666E75',
     offWhite: '#f3f3f3',
     white: '#fff',
-    black: '#252525'
+    black: '#252525',
+    blue: '#1981E9',
+    lightBlue: '#56a2ef'
   },
   fonts: {
     base: '16px',

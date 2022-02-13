@@ -5,7 +5,7 @@ import { FC } from "react";
 import { HeaderStyle } from './styles';
 
 // Utilities
-import { formatAddress } from 'utilities';
+import { formatAddress } from 'utilities/scripts';
 
 const Header: FC = () => {
 

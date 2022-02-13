@@ -6,7 +6,7 @@ import { Layout } from 'components/Layout';
 
 // Styles
 import { ThemeProvider } from 'styled-components';
-import { theme } from 'utilities/theme';
+import { theme } from 'utilities/styles/theme';
 
 const supportedChainIds: number[] = [4];
 const connectors = {
