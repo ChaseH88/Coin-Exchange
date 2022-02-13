@@ -25,5 +25,6 @@ export const theme = {
     base: '16px',
     font1: '"Open Sans", sans-serif;',
     font2: '"Sumana", serif;'
-  }
+  },
+  animationSpeed: 200
 }

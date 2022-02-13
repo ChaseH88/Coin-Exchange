@@ -6,6 +6,7 @@ import { HeaderStyle } from './styles';
 
 // Utilities
 import { formatAddress } from 'utilities/scripts';
+import { Button } from "components/General/Button";
 
 const Header: FC = () => {
 
@@ -22,12 +23,20 @@ const Header: FC = () => {
           <div className="right">
             {address ?
               <>
+                <Button
+                  onClick={null}
+                  text={'Send / Receive'}
+                />
                 <span>
                   {formatAddress(address)}
                 </span>
               </>
               :
               <>
+                <Button
+                  onClick={handleConnectWallet}
+                  text={'Connect'}
+                />
                 <button onClick={handleConnectWallet}>
                   Connect
                 </button>
