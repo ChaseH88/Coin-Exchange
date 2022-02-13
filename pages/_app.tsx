@@ -1,6 +1,9 @@
 import { AppProps } from 'next/app';
 import { ThirdwebWeb3Provider } from '@3rdweb/hooks';
 
+// Redux
+import { wrapper } from 'state';
+
 // Components
 import { Layout } from 'components/Layout';
 
@@ -16,7 +19,7 @@ const connectors = {
 /**
  * Main '_app' entry point to be shown on every page
  */
-const App = ({ Component, pageProps }: AppProps) => (
+const NextApp = ({ Component, pageProps }: AppProps) => (
   <>
     <ThirdwebWeb3Provider
       supportedChainIds={supportedChainIds}
@@ -29,6 +32,8 @@ const App = ({ Component, pageProps }: AppProps) => (
       </ThemeProvider>
     </ThirdwebWeb3Provider>
   </>
-)
+);
+
+const App = wrapper.withRedux(NextApp);
 
 export default App;
