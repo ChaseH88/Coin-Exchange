@@ -26,5 +26,8 @@ export const theme = {
     font1: '"Open Sans", sans-serif;',
     font2: '"Sumana", serif;'
   },
-  animationSpeed: 200
+  animationSpeed: 200,
+  padding: {
+    content: 1.5
+  }
 }

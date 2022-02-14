@@ -7,6 +7,7 @@ import reducers from './reducers';
 
 // Types
 import { AppState } from './reducers/app';
+import { CoinState } from './reducers/coin';
 
 declare global {
   interface Window {
@@ -16,6 +17,7 @@ declare global {
 
 export interface RootState {
   AppReducer: AppState
+  CoinReducer: CoinState
 }
 
 export interface Action {
