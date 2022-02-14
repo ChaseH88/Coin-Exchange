@@ -1,14 +1,18 @@
-import { useWeb3 } from "@3rdweb/hooks";
 import { FC } from "react";
+import classNames from "classnames";
 
 // Styles
 import { HeaderStyle } from './styles';
 
 // Utilities
 import { formatAddress } from 'utilities/scripts';
-import { Button } from "components/General/Button";
-import classNames from "classnames";
+
+// Hooks
+import { useWeb3 } from "@3rdweb/hooks";
 import { useRouter } from "next/router";
+
+// Components
+import { Button } from "components/General/Button";
 import { Heading } from "components/General/Heading";
 
 const Header: FC = () => {

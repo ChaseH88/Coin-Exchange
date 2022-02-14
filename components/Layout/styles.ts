@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { grid } from 'utilities/styles/helpers';
+import { gradient, grid } from 'utilities/styles/helpers';
 
 export const LayoutStyle = styled.div`
 
@@ -11,12 +11,12 @@ export const LayoutStyle = styled.div`
       overflow: hidden;
 
     & > .left {
-      background: ${({ theme: { colors: { blackGreen } } }) => blackGreen};
+      background: ${({ theme: { colors: { blackGreen } } }) => gradient(blackGreen)};
       flex: 0 0 20%;
     }
 
     & > .right {
-      background: ${({ theme: { colors: { darkBlackGreen } } }) => darkBlackGreen};
+      background: ${({ theme: { colors: { darkBlackGreen } } }) => gradient(darkBlackGreen)};
       flex: 1 1 80%;
       ${grid(1, true)};
 
