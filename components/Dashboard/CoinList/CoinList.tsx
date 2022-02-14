@@ -15,7 +15,7 @@ import { formatCurrency, sanityImage } from 'utilities/scripts';
 
 const CoinList: FC = () => {
 
-  const { coins } = useCoinState();
+  const { sanityCoins, totalBalance, isCalculating } = useCoinState();
   const columns = [
     { title: 'Name', className: 'name' },
     { title: 'Balance', className: 'balance' },
@@ -43,41 +43,61 @@ const CoinList: FC = () => {
             </div>
           ))}
         </div>
-        {coins ?
+        {sanityCoins ?
           <>
-            {coins.map(({ name, symbol, usdPrice, contractAddress, logo }, i) => {
-              return (
-                <div className="row body" key={contractAddress}>
-                  <div className={'name'}>
-                    <Image
-                      src={sanityImage(logo)}
-                      className='logo'
-                      height={40}
-                      width={40}
-                    />
-                    <div className="text">
-                      <span>{name}</span>
-                      <span>{symbol}</span>
-                    </div>
+            {sanityCoins.map(({
+              name,
+              symbol,
+              usdPrice,
+              contractAddress,
+              logo
+            }) => (
+              <div className="row body" key={contractAddress}>
+                <div className={'name'}>
+                  <Image
+                    src={sanityImage(logo)}
+                    className='logo'
+                    height={40}
+                    width={40}
+                  />
+                  <div className="text">
+                    <span>{name}</span>
+                    <span>{symbol}</span>
                   </div>
-                  <div className={'balance'}>
-                    <div className="text">
-                      <span>
-                        {formatCurrency(0)}
-                      </span>
-                      <span>
-                        0.00 {symbol}
-                      </span>
-                    </div>
-                  </div>
-                  <div className={'price'}>
+                </div>
+                <div className={'balance'}>
+                  <div className="text">
                     <span>
-                      {formatCurrency(+usdPrice)}
+                      {formatCurrency(0)}
+                    </span>
+                    <span>
+                      0.00 {symbol}
                     </span>
                   </div>
                 </div>
-              )
-            })}
+                <div className={'price'}>
+                  <span>
+                    {formatCurrency(+usdPrice)}
+                  </span>
+                </div>
+              </div>
+            ))}
+            <div className="row total-balance">
+              <strong>
+                {isCalculating ?
+                  <>
+                    Loading...
+                  </>
+                  :
+                  <>
+                    {totalBalance > 0 ?
+                      `Total Balance: ${formatCurrency(totalBalance)}` :
+                      'No Assets'
+                    }
+                  </>
+                }
+              </strong>
+            </div>
           </>
           :
           <>

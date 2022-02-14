@@ -1,12 +1,12 @@
 import { AppProps } from 'next/app';
 
 // Hooks
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // Redux
 import { wrapper } from 'state';
 import { useDispatch } from 'react-redux';
-import { getCoinsAction } from 'state/actions/coin';
+import { getSanityCoinsAction } from 'state/actions/coin';
 
 // Components
 import { ThirdwebWeb3Provider } from '@3rdweb/hooks';
@@ -27,9 +27,14 @@ const connectors = {
 const NextApp = ({ Component, pageProps }: AppProps) => {
 
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    dispatch(getCoinsAction())
+    async function loadData() {
+      await dispatch(getSanityCoinsAction());
+      setIsLoading(false);
+    }
+    loadData();
   }, []);
 
   return (
@@ -39,9 +44,13 @@ const NextApp = ({ Component, pageProps }: AppProps) => {
         connectors={connectors}
       >
         <ThemeProvider theme={theme}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          {isLoading ?
+            <div>Loading...</div>
+            :
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          }
         </ThemeProvider>
       </ThirdwebWeb3Provider>
     </>

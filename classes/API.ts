@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 export enum Endpoint {
-  GET_COINS = "/data/query/production?query=*%5B_type%3D%3D'coins'%5D%20%7B%0A%20%20name%2C%0A%20%20usdPrice%2C%0A%20%20contractAddress%2C%0A%20%20symbol%2C%0A%20%20logo%0A%7D"
+  GET_SANITY_COINS = "/data/query/production?query=*%5B_type%3D%3D'coins'%5D%20%7B%0A%20%20name%2C%0A%20%20usdPrice%2C%0A%20%20contractAddress%2C%0A%20%20symbol%2C%0A%20%20logo%0A%7D"
 }
 
 export interface APIResponse {

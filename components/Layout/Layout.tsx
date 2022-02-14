@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 // Styles
 import { GlobalStyle } from 'utilities/styles/_global-styles';
@@ -8,23 +8,45 @@ import { LayoutStyle } from './styles';
 import { Header } from './components/Header';
 import { SideNav } from './components/SideNav';
 
-const Layout: FC = ({ children }) => (
-  <>
-    <GlobalStyle />
-    <LayoutStyle>
-      <div className="container">
-        <div className="left">
-          <SideNav />
-        </div>
-        <div className="right">
-          <Header />
-          <div id="content">
-            {children}
+// Redux
+import { useDispatch } from "react-redux";
+import { calculateTotalBalanceAction } from "state/actions/coin";
+import { useWeb3 } from "@3rdweb/hooks";
+import { useCoinState } from "hooks";
+
+const Layout: FC = ({ children }) => {
+
+  const dispatch = useDispatch();
+  const { address } = useWeb3();
+  const { sanityCoins, thirdwebCoins } = useCoinState();
+
+  useEffect(() => {
+    async function loadData() {
+      await dispatch(calculateTotalBalanceAction(
+        address, sanityCoins, thirdwebCoins
+      ))
+    }
+    address && loadData();
+  }, [address]);
+
+  return (
+    <>
+      <GlobalStyle />
+      <LayoutStyle>
+        <div className="container">
+          <div className="left">
+            <SideNav />
+          </div>
+          <div className="right">
+            <Header />
+            <div id="content">
+              {children}
+            </div>
           </div>
         </div>
-      </div>
-    </LayoutStyle>
-  </>
-)
+      </LayoutStyle>
+    </>
+  )
+}
 
 export { Layout }

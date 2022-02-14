@@ -53,4 +53,11 @@ export const CoinListStyle = styled.div`
     }
   }
 
+  .total-balance {
+    border-bottom: 0;
+    padding: 1em 1.5em 0 ;
+    font-size: 1.1em;
+    justify-content: flex-end;
+  }
+
 `;

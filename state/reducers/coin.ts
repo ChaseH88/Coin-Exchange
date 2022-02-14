@@ -1,23 +1,42 @@
 import * as types from '../types/coin';
 import { Action } from '..';
-import { CoinInterface } from 'types/interfaces';
+import { CoinInterface, TokenModule } from 'types/interfaces';
 
 export interface CoinState {
-  coins: CoinInterface[] | null
+  sanityCoins: CoinInterface[] | null
+  thirdwebCoins: TokenModule[] | null
+  totalBalance: number | null,
+  isCalculating: boolean
 }
 
 export const initialState: CoinState = {
-  coins: null
+  sanityCoins: null,
+  thirdwebCoins: null,
+  totalBalance: null,
+  isCalculating: true
 };
 
 const CoinReducer = (state: CoinState = initialState, { type, payload }: Action): CoinState => {
   switch (type) {
 
     // Set Coins
-    case types.SET_COINS:
+    case types.SET_SANITY_COINS:
       return {
         ...state,
-        coins: payload
+        sanityCoins: payload
+      };
+
+    case types.SET_ETHERS_COINS:
+      return {
+        ...state,
+        thirdwebCoins: payload
+      };
+
+    // User Coin
+    case types.UPDATE_TOTAL_BALANCE:
+      return {
+        ...state,
+        ...payload // totalBalance, isCalculating
       };
 
     // default

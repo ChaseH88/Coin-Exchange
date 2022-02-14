@@ -3,6 +3,8 @@
  * Coins
  * ============================================================================
  */
+export { TokenModule } from '@3rdweb/sdk';
+
 export interface CoinsResponseInterface {
   ms: number;
   query: string;
