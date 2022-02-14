@@ -28,6 +28,10 @@ export const CoinListStyle = styled.div`
     .name {
       flex: 1 1 40%;
 
+      .logo {
+        max-width: 40px !important;
+      }
+
       .text {
         margin: 0 0 0 .75em;
 

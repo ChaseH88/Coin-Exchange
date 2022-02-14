@@ -5,9 +5,13 @@ import { useCoinState } from 'hooks';
 
 // Styles
 import { CoinListStyle } from './styles';
+
+// Components
 import { Heading } from 'components/General/Heading';
+import { Image } from 'components/General/Image';
+
+// Utilities
 import { formatCurrency, sanityImage } from 'utilities/scripts';
-import Image from 'next/image';
 
 const CoinList: FC = () => {
 
@@ -46,9 +50,10 @@ const CoinList: FC = () => {
                 <div className="row body" key={contractAddress}>
                   <div className={'name'}>
                     <Image
+                      src={sanityImage(logo)}
+                      className='logo'
                       height={40}
                       width={40}
-                      src={sanityImage(logo)}
                     />
                     <div className="text">
                       <span>{name}</span>
