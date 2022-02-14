@@ -27,7 +27,7 @@ const Layout: FC = ({ children }) => {
       ))
     }
     address && loadData();
-  }, [address]);
+  }, [address, sanityCoins, thirdwebCoins]);
 
   return (
     <>
