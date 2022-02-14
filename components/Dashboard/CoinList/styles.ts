@@ -25,6 +25,18 @@ export const CoinListStyle = styled.div`
       align-items: center;
     }
 
+    .text {
+      margin: 0 0 0 .75em;
+
+      span {
+        display: block;
+        &:last-child {
+          font-size: .8em;
+          color: ${({ theme: { colors: { lightBlackGreen } } }) => lightBlackGreen};
+        }
+      }
+    }
+
     .name {
       flex: 1 1 40%;
 
@@ -32,17 +44,6 @@ export const CoinListStyle = styled.div`
         max-width: 40px !important;
       }
 
-      .text {
-        margin: 0 0 0 .75em;
-
-        span {
-          display: block;
-          &:last-child {
-            font-size: .8em;
-            color: ${({ theme: { colors: { lightBlackGreen } } }) => lightBlackGreen};
-          }
-        }
-      }
     }
     .balance {
       flex: 1 1 40%;

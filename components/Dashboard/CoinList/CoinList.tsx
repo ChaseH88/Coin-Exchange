@@ -61,9 +61,14 @@ const CoinList: FC = () => {
                     </div>
                   </div>
                   <div className={'balance'}>
-                    <span>
-                      0
-                    </span>
+                    <div className="text">
+                      <span>
+                        {formatCurrency(0)}
+                      </span>
+                      <span>
+                        0.00 {symbol}
+                      </span>
+                    </div>
                   </div>
                   <div className={'price'}>
                     <span>
