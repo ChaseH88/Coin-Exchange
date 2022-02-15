@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 // Components
 import { Button } from "components/General/Button";
 import { Heading } from "components/General/Heading";
+import { CryptoModal } from "components/Modals";
 
 // Render Modal
 Modal.setAppElement('#__next');
@@ -84,7 +85,7 @@ const Header: FC = () => {
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
       >
-        dsd
+        <CryptoModal />
       </Modal>
     </>
   )

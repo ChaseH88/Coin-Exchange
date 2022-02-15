@@ -26,7 +26,7 @@ const Layout: FC = ({ children }) => {
         address, sanityCoins, thirdwebCoins
       ))
     }
-    address && loadData();
+    loadData();
   }, [address, sanityCoins, thirdwebCoins]);
 
   return (

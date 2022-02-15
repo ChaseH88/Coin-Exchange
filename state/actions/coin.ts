@@ -53,7 +53,10 @@ export const calculateTotalBalanceAction = (
   address: string, sanityCoins: CoinInterface[], thirdwebCoins: TokenModule[]
 ) => async (dispatch: Dispatch): Promise<void | Dispatch> => {
 
-  if (!address) return;
+  if (!address) {
+    dispatch(setTotalBalanceAction(0));
+    return;
+  };
 
   let tokenToUsd = {};
   let totalBalance = 0;
