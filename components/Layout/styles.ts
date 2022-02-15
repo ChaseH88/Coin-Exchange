@@ -11,12 +11,12 @@ export const LayoutStyle = styled.div`
       overflow: hidden;
 
     & > .left {
-      background: ${({ theme: { colors: { blackGreen } } }) => gradient(blackGreen)};
+      background: ${({ theme: { colors: { blackGreen } } }) => gradient({ color: blackGreen, intensity: 2 })};
       flex: 0 0 20%;
     }
 
     & > .right {
-      background: ${({ theme: { colors: { darkBlackGreen } } }) => gradient(darkBlackGreen)};
+      background: ${({ theme: { colors: { darkBlackGreen } } }) => gradient({ color: darkBlackGreen })};
       flex: 1 1 80%;
       ${grid(1, true)};
 

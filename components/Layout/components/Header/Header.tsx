@@ -1,5 +1,8 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import classNames from "classnames";
+
+// Modal
+import Modal from 'react-modal';
 
 // Styles
 import { HeaderStyle } from './styles';
@@ -15,8 +18,12 @@ import { useRouter } from "next/router";
 import { Button } from "components/General/Button";
 import { Heading } from "components/General/Heading";
 
+// Render Modal
+Modal.setAppElement('#__next');
+
 const Header: FC = () => {
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { address, connectWallet, balance } = useWeb3();
   const router = useRouter();
 
@@ -46,7 +53,7 @@ const Header: FC = () => {
           <div className="right">
             {address && (
               <Button
-                onClick={null}
+                onClick={() => setModalIsOpen(true)}
                 text={'Send / Receive'}
               />
             )}
@@ -73,6 +80,12 @@ const Header: FC = () => {
           )}
         </div>
       </HeaderStyle>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+      >
+        dsd
+      </Modal>
     </>
   )
 }
