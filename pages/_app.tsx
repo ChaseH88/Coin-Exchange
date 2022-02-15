@@ -15,6 +15,7 @@ import { Layout } from 'components/Layout';
 // Styles
 import { ThemeProvider } from 'styled-components';
 import { theme } from 'utilities/styles/theme';
+import { HomeLoader } from 'components/General/Loaders';
 
 const supportedChainIds: number[] = [4];
 const connectors = {
@@ -45,7 +46,7 @@ const NextApp = ({ Component, pageProps }: AppProps) => {
       >
         <ThemeProvider theme={theme}>
           {isLoading ?
-            <div>Loading...</div>
+            <HomeLoader />
             :
             <Layout>
               <Component {...pageProps} />
