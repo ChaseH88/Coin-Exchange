@@ -84,6 +84,7 @@ const Header: FC = () => {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
+        className='dark'
       >
         <CryptoModal />
       </Modal>

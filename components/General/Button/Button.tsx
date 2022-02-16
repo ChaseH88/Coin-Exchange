@@ -8,6 +8,7 @@ export interface ButtonProps extends ButtonStylesInterface {
   text: string
   className?: string
   onClick: any
+  disabled?: boolean
 }
 
 /**
@@ -19,7 +20,8 @@ const Button: FC<ButtonProps> = ({
   margin = '.2rem',
   variant = 'normal',
   className,
-  onClick
+  onClick,
+  disabled = false
 }): JSX.Element => (
   <>
     <ButtonStyles
@@ -30,6 +32,7 @@ const Button: FC<ButtonProps> = ({
       className={
         classNames('button', className)
       }
+      disabled={disabled}
     >
       {text}
     </ButtonStyles>
