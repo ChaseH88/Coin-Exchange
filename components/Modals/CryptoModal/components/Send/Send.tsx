@@ -1,7 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 
 // Hooks
-import { useCoinState } from 'hooks';
+import { useCoinState, useCurrentBalance } from 'hooks';
 import { useForm } from 'react-hook-form';
 
 // Styles
@@ -13,6 +13,7 @@ import { CoinDropdown } from '../CoinDropdown';
 // Types
 import { CoinInterface } from 'types/interfaces';
 import classNames from 'classnames';
+import { useWeb3 } from '@3rdweb/hooks';
 
 export interface SendForm {
   amount: string
@@ -25,7 +26,9 @@ export interface SendForm {
  */
 const Send: FC = (): JSX.Element => {
 
-  const { sanityCoins, thirdwebCoins } = useCoinState();
+  const [selectedCoin, setSelectedCoin] = useState<CoinInterface | null>(null);
+  const balance = useCurrentBalance(selectedCoin);
+  const { sanityCoins } = useCoinState();
   const {
     register,
     handleSubmit,
@@ -40,15 +43,6 @@ const Send: FC = (): JSX.Element => {
     },
     clearErrors
   } = useForm<SendForm>();
-  const [selectedCoin, setSelectedCoin] = useState<CoinInterface | null>(null);
-
-  // thirdwebCoins.forEach(coin => {
-  //   if (selectedCoin) {
-  //     if (coin.address === selectedCoin.contractAddress) {
-  //       console.log(coin);
-  //     }
-  //   }
-  // })
 
   const onSubmit = (data: SendForm) => {
     alert(JSON.stringify(data));
@@ -64,7 +58,9 @@ const Send: FC = (): JSX.Element => {
             placeholder='0'
             {...register('amount', {
               required: true,
-              onChange: () => clearErrors('amount')
+              onChange: () => clearErrors('amount'),
+              max: +balance?.displayValue ?? 0,
+              min: 0
             })}
             style={{
               fontSize: '2em',
@@ -82,7 +78,9 @@ const Send: FC = (): JSX.Element => {
           <div className="error">
             {amountError &&
               <span>
-                Amount is required
+                {amountError.type === 'max' && 'You don\'t have enough funds'}
+                {amountError.type === 'min' && 'Enter a valid amount'}
+                {amountError.type === 'required' && 'Amount is required'}
               </span>
             }
           </div>
@@ -141,7 +139,8 @@ const Send: FC = (): JSX.Element => {
           </div>
           <div className="right">
             <span>
-              0 {` ${selectedCoin?.symbol ?? 'XX'}`}
+              {balance ? balance.displayValue : 'N/A'}
+              {` ${selectedCoin?.symbol ?? 'XX'}`}
             </span>
           </div>
         </div>
