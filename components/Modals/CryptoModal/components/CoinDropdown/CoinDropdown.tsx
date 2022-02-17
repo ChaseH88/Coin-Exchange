@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, Dispatch } from 'react';
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 // Utilities
@@ -20,6 +20,7 @@ export interface CoinDropdownProps {
   placeholder?: string
   register: UseFormRegister<SendForm>
   setValue: UseFormSetValue<SendForm>
+  setSelectedCoin: Dispatch<CoinInterface | null>
 }
 
 /**
@@ -29,7 +30,8 @@ const CoinDropdown: FC<CoinDropdownProps> = ({
   sanityCoins,
   placeholder = 'Select a coin',
   register,
-  setValue
+  setValue,
+  setSelectedCoin
 }): JSX.Element => {
 
   const [data, setData] = useState<{
@@ -54,6 +56,7 @@ const CoinDropdown: FC<CoinDropdownProps> = ({
   };
 
   const selectItem = (item: CoinInterface) => {
+    setSelectedCoin(item);
     setData({
       ...data,
       selectedCoin: item,
@@ -129,7 +132,9 @@ const CoinDropdown: FC<CoinDropdownProps> = ({
       <input
         type="hidden"
         placeholder='test'
-        {...register('coin')}
+        {...register('coin', {
+          onChange: () => console.log(data.selectedCoin?.name ?? '')
+        })}
       />
     </CoinDropdownStyles>
   )

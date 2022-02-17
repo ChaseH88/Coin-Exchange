@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 // Hooks
 import { useCoinState } from 'hooks';
@@ -9,6 +9,10 @@ import { SendStyles } from './styles';
 
 // Components
 import { CoinDropdown } from '../CoinDropdown';
+
+// Types
+import { CoinInterface } from 'types/interfaces';
+import classNames from 'classnames';
 
 export interface SendForm {
   amount: string
@@ -34,8 +38,10 @@ const Send: FC = (): JSX.Element => {
         coin: coinError
       }
     },
-    clearErrors
+    clearErrors,
+    control
   } = useForm<SendForm>();
+  const [selectedCoin, setSelectedCoin] = useState<CoinInterface | null>(null);
 
   const onSubmit = (data: SendForm) => {
     alert(JSON.stringify(data));
@@ -58,7 +64,12 @@ const Send: FC = (): JSX.Element => {
             }}
           />
           <label htmlFor="amount">
-            BTC
+            <span className={classNames({
+              'selected': selectedCoin,
+              'not-selected': !selectedCoin
+            })}>
+              {selectedCoin?.symbol ?? 'XX'}
+            </span>
           </label>
           <div className="error">
             {amountError &&
@@ -91,6 +102,7 @@ const Send: FC = (): JSX.Element => {
               sanityCoins={sanityCoins}
               register={register}
               setValue={setValue}
+              setSelectedCoin={setSelectedCoin}
             />
           </div>
         </div>
@@ -119,7 +131,7 @@ const Send: FC = (): JSX.Element => {
           </div>
           <div className="right">
             <span>
-              0 BTC
+              0 {` ${selectedCoin?.symbol ?? 'XX'}`}
             </span>
           </div>
         </div>
