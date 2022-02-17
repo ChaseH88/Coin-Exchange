@@ -1,17 +1,20 @@
-import { Image } from 'components/General/Image';
-import { useCoinState } from 'hooks';
 import React, { FC } from 'react';
+
+// Utilities
 import { sanityImage } from 'utilities/scripts';
+
+// Hooks
+import { useCoinState } from 'hooks';
 import { useForm } from 'react-hook-form';
+
+// Components
+import { Image } from 'components/General/Image';
 
 // Styles
 import { SendStyles } from './styles';
+import { CoinDropdown } from '../CoinDropdown';
 
-export interface SendProps {
-
-}
-
-interface SendForm {
+export interface SendForm {
   amount: string
   address: string
   coin: string
@@ -20,7 +23,7 @@ interface SendForm {
 /**
  * The Crypto Modal Send component
  */
-const Send: FC<SendProps> = (): JSX.Element => {
+const Send: FC = (): JSX.Element => {
 
   const { sanityCoins } = useCoinState();
   const {
@@ -87,33 +90,9 @@ const Send: FC<SendProps> = (): JSX.Element => {
             <label htmlFor='coin'>
               Pay With
             </label>
-            <select
-              name="coin"
-              id="coin"
-              {...register('coin', {
-                required: true,
-                onChange: () => clearErrors('coin'),
-                value: null
-              })}
-            >
-              {sanityCoins.map(({
-                name,
-                logo
-              }) => (
-                <option
-                  value={name.toLowerCase()}
-                >
-                  {/* Make a custom select component */}
-                  <Image
-                    src={sanityImage(logo)}
-                    className='logo'
-                    height={40}
-                    width={40}
-                  />
-                  {name}
-                </option>
-              ))}
-            </select>
+            <CoinDropdown
+              sanityCoins={sanityCoins}
+            />
           </div>
         </div>
         <div className="errors">

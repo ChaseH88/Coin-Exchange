@@ -34,7 +34,10 @@ const CoinList: FC = () => {
         </div>
         <div className="row headers">
           {columns.map(({ title, className }, i) => (
-            <div className={className}>
+            <div
+              key={`table-header-${i}`}
+              className={className}
+            >
               <Heading
                 size='h5'
                 title={title}
@@ -52,7 +55,10 @@ const CoinList: FC = () => {
               contractAddress,
               logo
             }) => (
-              <div className="row body" key={contractAddress}>
+              <div
+                className="row body"
+                key={contractAddress}
+              >
                 <div className={'name'}>
                   <Image
                     src={sanityImage(logo)}
