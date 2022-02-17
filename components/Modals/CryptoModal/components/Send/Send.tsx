@@ -25,7 +25,7 @@ export interface SendForm {
  */
 const Send: FC = (): JSX.Element => {
 
-  const { sanityCoins } = useCoinState();
+  const { sanityCoins, thirdwebCoins } = useCoinState();
   const {
     register,
     handleSubmit,
@@ -38,10 +38,17 @@ const Send: FC = (): JSX.Element => {
         coin: coinError
       }
     },
-    clearErrors,
-    control
+    clearErrors
   } = useForm<SendForm>();
   const [selectedCoin, setSelectedCoin] = useState<CoinInterface | null>(null);
+
+  // thirdwebCoins.forEach(coin => {
+  //   if (selectedCoin) {
+  //     if (coin.address === selectedCoin.contractAddress) {
+  //       console.log(coin);
+  //     }
+  //   }
+  // })
 
   const onSubmit = (data: SendForm) => {
     alert(JSON.stringify(data));
@@ -63,13 +70,14 @@ const Send: FC = (): JSX.Element => {
               fontSize: '2em',
             }}
           />
-          <label htmlFor="amount">
-            <span className={classNames({
+          <label
+            htmlFor="amount"
+            className={classNames({
               'selected': selectedCoin,
               'not-selected': !selectedCoin
-            })}>
-              {selectedCoin?.symbol ?? 'XX'}
-            </span>
+            })}
+          >
+            {selectedCoin?.symbol ?? 'XX'}
           </label>
           <div className="error">
             {amountError &&
@@ -125,8 +133,10 @@ const Send: FC = (): JSX.Element => {
         </div>
         <div className="balance">
           <div className="left">
-            <span>
-              Bitcoin Balance
+            <span style={{
+              opacity: selectedCoin ? 1 : 0
+            }}>
+              {selectedCoin ? `${selectedCoin?.name} Balance` : 'N/A'}
             </span>
           </div>
           <div className="right">

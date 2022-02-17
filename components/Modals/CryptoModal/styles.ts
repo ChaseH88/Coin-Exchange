@@ -90,6 +90,10 @@ export const CryptoModalStyles = styled.div`
           &:focus {
             outline: 0;
           }
+
+          &:-internal-autofill-selected {
+            background: transparent !important;
+          }
         }
         label {
           flex: 0 0 40%;
@@ -97,6 +101,13 @@ export const CryptoModalStyles = styled.div`
           font-size: 1.75em;
           margin-left: .3em;
           color: ${({ theme }) => theme.colors.blue};
+
+          &.not-selected {
+            opacity: .5;
+          }
+          .selected {
+            opacity: 1;
+          }
         }
 
         .error {

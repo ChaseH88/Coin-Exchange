@@ -133,7 +133,7 @@ const CoinDropdown: FC<CoinDropdownProps> = ({
         type="hidden"
         placeholder='test'
         {...register('coin', {
-          onChange: () => console.log(data.selectedCoin?.name ?? '')
+          required: true
         })}
       />
     </CoinDropdownStyles>
