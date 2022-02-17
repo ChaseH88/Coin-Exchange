@@ -1,17 +1,13 @@
 import React, { FC } from 'react';
 
-// Utilities
-import { sanityImage } from 'utilities/scripts';
-
 // Hooks
 import { useCoinState } from 'hooks';
 import { useForm } from 'react-hook-form';
 
-// Components
-import { Image } from 'components/General/Image';
-
 // Styles
 import { SendStyles } from './styles';
+
+// Components
 import { CoinDropdown } from '../CoinDropdown';
 
 export interface SendForm {
@@ -29,6 +25,7 @@ const Send: FC = (): JSX.Element => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: {
       isSubmitting,
       errors: {
@@ -92,6 +89,8 @@ const Send: FC = (): JSX.Element => {
             </label>
             <CoinDropdown
               sanityCoins={sanityCoins}
+              register={register}
+              setValue={setValue}
             />
           </div>
         </div>

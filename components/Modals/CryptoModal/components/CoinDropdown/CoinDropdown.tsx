@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 // Utilities
 import { sanityImage } from 'utilities/scripts';
@@ -7,6 +8,7 @@ import { sanityImage } from 'utilities/scripts';
 import { CoinDropdownStyles } from './styles';
 
 // Types
+import { SendForm } from '../Send';
 import { CoinInterface } from 'types/interfaces';
 import classNames from 'classnames';
 
@@ -16,6 +18,8 @@ import Image from 'next/image';
 export interface CoinDropdownProps {
   sanityCoins: CoinInterface[]
   placeholder?: string
+  register: UseFormRegister<SendForm>
+  setValue: UseFormSetValue<SendForm>
 }
 
 /**
@@ -23,7 +27,9 @@ export interface CoinDropdownProps {
  */
 const CoinDropdown: FC<CoinDropdownProps> = ({
   sanityCoins,
-  placeholder = 'Select a coin'
+  placeholder = 'Select a coin',
+  register,
+  setValue
 }): JSX.Element => {
 
   const [data, setData] = useState<{
@@ -35,6 +41,10 @@ const CoinDropdown: FC<CoinDropdownProps> = ({
     showItems: false,
     selectedCoin: null
   });
+
+  useEffect(() => {
+    setValue('coin', data?.selectedCoin?.name ?? '', { shouldValidate: true });
+  }, [data.selectedCoin]);
 
   const dropDown = () => {
     setData(prevState => ({
@@ -116,6 +126,11 @@ const CoinDropdown: FC<CoinDropdownProps> = ({
           ))}
         </div>
       </div>
+      <input
+        type="hidden"
+        placeholder='test'
+        {...register('coin')}
+      />
     </CoinDropdownStyles>
   )
 }
