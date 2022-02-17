@@ -1,6 +1,8 @@
-import { Button } from 'components/General/Button';
+import { Image } from 'components/General/Image';
 import { useCoinState } from 'hooks';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
+import { sanityImage } from 'utilities/scripts';
+import { useForm } from 'react-hook-form';
 
 // Styles
 import { SendStyles } from './styles';
@@ -9,76 +11,62 @@ export interface SendProps {
 
 }
 
+interface SendForm {
+  amount: string
+  address: string
+  coin: string
+}
+
 /**
  * The Crypto Modal Send component
  */
 const Send: FC<SendProps> = (): JSX.Element => {
 
-  const [isSending, setIsSending] = useState<boolean>(false);
-  const [userInput, setUserInput] = useState<{
-    amount: string | null
-    address: string | null
-    coin: string | null
-  }>({
-    amount: null,
-    address: null,
-    coin: null
-  });
   const { sanityCoins } = useCoinState();
+  const {
+    register,
+    handleSubmit,
+    formState: {
+      isSubmitting,
+      errors: {
+        amount: amountError,
+        address: addressError,
+        coin: coinError
+      }
+    },
+    clearErrors
+  } = useForm<SendForm>();
 
-  const isFormComplete = () => {
-    const complete = Object.values(userInput).every(value => value !== null);
-    return complete;
-  }
-
-  const coinFontSize = () => {
-    const l = userInput.amount?.length ?? 0;
-    switch (true) {
-      case l > 10:
-        return '1.1em'
-      case l > 7:
-        return '1.3em'
-      case l > 4:
-        return '1.65em'
-      default:
-        return '2em'
-    }
-  }
-
-  const handleSubmit = () => {
-    if (isFormComplete()) {
-      setIsSending(true);
-    }
-  }
-
-  /**
-   * Handle Input Update
-   */
-  const handleChange = ({ target: { name, type, value } }) => {
-    setUserInput({
-      ...userInput,
-      [name]: type === 'number' ? +value : value
-    });
-  }
+  const onSubmit = (data: SendForm) => {
+    alert(JSON.stringify(data));
+  };
 
   return (
-    <SendStyles>
+    <SendStyles onSubmit={handleSubmit(onSubmit)}>
       <div className="wrapper">
         <div className="details">
           <input
-            type="number"
-            onChange={handleChange}
-            name='amount'
             id='amount'
-            maxLength={10}
+            type="number"
             placeholder='0'
+            {...register('amount', {
+              required: true,
+              onChange: () => clearErrors('amount')
+            })}
             style={{
-              fontSize: coinFontSize()
+              fontSize: '2em',
             }}
           />
           <label htmlFor="amount">
             BTC
           </label>
+          <div className="error">
+            {amountError &&
+              <span>
+                Amount is required
+              </span>
+            }
+          </div>
         </div>
         <div className="form">
           <div className="field">
@@ -86,10 +74,13 @@ const Send: FC<SendProps> = (): JSX.Element => {
               Address
             </label>
             <input
-              onChange={handleChange}
-              placeholder='Address'
-              name='address'
               id='address'
+              type="text"
+              placeholder='Address'
+              {...register('address', {
+                required: true,
+                onChange: () => clearErrors('address')
+              })}
             />
           </div>
           <div className="field">
@@ -99,26 +90,48 @@ const Send: FC<SendProps> = (): JSX.Element => {
             <select
               name="coin"
               id="coin"
-              onChange={handleChange}
+              {...register('coin', {
+                required: true,
+                onChange: () => clearErrors('coin'),
+                value: null
+              })}
             >
               {sanityCoins.map(({
-                name
+                name,
+                logo
               }) => (
                 <option
                   value={name.toLowerCase()}
                 >
+                  {/* Make a custom select component */}
+                  <Image
+                    src={sanityImage(logo)}
+                    className='logo'
+                    height={40}
+                    width={40}
+                  />
                   {name}
                 </option>
               ))}
             </select>
           </div>
         </div>
+        <div className="errors">
+          {addressError && coinError ?
+            <span>
+              Please enter an address and select a coin.
+            </span>
+            :
+            <span>
+              {addressError && 'Please enter an address.'}
+              {coinError && 'Please select a coin.'}
+            </span>
+          }
+        </div>
         <div className="button">
-          <Button
-            onClick={handleSubmit}
-            // disabled={!isFormComplete()}
-            text={isSending ? 'Sending...' : 'Send'}
-          />
+          <button type="submit">
+            {isSubmitting ? 'Sending...' : 'Send'}
+          </button>
         </div>
         <div className="balance">
           <div className="left">

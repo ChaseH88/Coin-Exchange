@@ -76,14 +76,14 @@ export const CryptoModalStyles = styled.div`
         display: flex;
         align-items: center;
         font-size: 1.5em; // control font size of both elements
-        padding: 1em 0;
         height: 100px;
+        flex-wrap: wrap;
 
         input {
           background: transparent;
           border: 0;
           text-align: right;
-          flex: 1 1 55%;
+          flex: 0 0 55%;
           width: 55%;
           color: ${({ theme }) => theme.colors.offWhite};
 
@@ -92,11 +92,21 @@ export const CryptoModalStyles = styled.div`
           }
         }
         label {
-          flex: 1 1 45%;
+          flex: 0 0 40%;
           text-align: left;
           font-size: 1.75em;
           margin-left: .3em;
           color: ${({ theme }) => theme.colors.blue};
+        }
+
+        .error {
+          flex: 1 1 100%;
+          height: 30px;
+
+          span {
+            color: ${({ theme }) => theme.colors.error};
+            font-size: .65em;
+          }
         }
       }
 
@@ -136,9 +146,25 @@ export const CryptoModalStyles = styled.div`
         }
       }
 
+      & > .errors {
+        margin-top: .2em;
+        height: 1.5em;
+        display: flex;
+        align-items: center;
+        padding: .5em;
+        justify-content: center;
+
+        span {
+          color: ${({ theme }) => theme.colors.error};
+          font-size: .9em;
+          font-weight: bold;
+          font-family: inherit;
+        }
+      }
+
       // Submit Button Section
       & > .button {
-        margin: 1em 0 0;
+        margin: .4em 0 0;
         display: flex;
 
         button {
@@ -147,6 +173,19 @@ export const CryptoModalStyles = styled.div`
           font-family: inherit;
           font-size: 1.25em;
           transition: 200ms ease opacity;
+          border: 0;
+          border-radius: .3em;
+          font-weight: 300;
+          cursor: pointer;
+          background: ${({ theme }) => theme.colors.blue};
+          color: ${({ theme }) => theme.colors.white};
+
+          &:hover, &:focus {
+            transform: scale(1.015)
+          }
+          &:active {
+            transform: scale(.9975)
+          }
 
           &:disabled {
             opacity: .5;
