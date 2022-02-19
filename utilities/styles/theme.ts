@@ -21,6 +21,7 @@ export const theme = {
     blue: '#1981E9',
     lightBlue: '#56a2ef',
     error: '#ff5c5c',
+    success: '#00c851',
   },
   fonts: {
     base: '16px',

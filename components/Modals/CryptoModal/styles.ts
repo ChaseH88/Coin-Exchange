@@ -183,7 +183,7 @@ export const CryptoModalStyles = styled.div`
           padding: .5em;
           font-family: inherit;
           font-size: 1.25em;
-          transition: 200ms ease opacity;
+          transition: 200ms ease all;
           border: 0;
           border-radius: .3em;
           font-weight: 300;
@@ -201,6 +201,19 @@ export const CryptoModalStyles = styled.div`
           &:disabled {
             opacity: .5;
           }
+
+          &.complete {
+            background: ${({ theme }) => theme.colors.success};
+              position: relative;
+
+            span {
+              position: absolute;
+              display: inline-block;
+              margin: 0 0 0 .5em;
+              animation: wiggle 1500ms; // animation is at bottom of file
+            }
+          }
+
         }
       }
 
@@ -216,6 +229,14 @@ export const CryptoModalStyles = styled.div`
         }
       }
     }
+  }
+
+  @keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    80% { transform: rotate(0deg); }
+    85% { transform: rotate(15deg); }
+    95% { transform: rotate(-15deg); }
+    100% { transform: rotate(0deg); }
   }
 
 `;

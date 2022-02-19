@@ -1,8 +1,10 @@
 import React, { FC, useCallback, useState } from 'react';
+import { BigNumber } from 'ethers';
 
 // Hooks
 import { useCoinState, useCurrentBalance } from 'hooks';
 import { useForm } from 'react-hook-form';
+import { useWeb3 } from '@3rdweb/hooks';
 
 // Styles
 import { SendStyles } from './styles';
@@ -13,7 +15,7 @@ import { CoinDropdown } from '../CoinDropdown';
 // Types
 import { CoinInterface } from 'types/interfaces';
 import classNames from 'classnames';
-import { useWeb3 } from '@3rdweb/hooks';
+import { Icon } from 'components/General/Icon';
 
 export interface SendForm {
   amount: string
@@ -27,8 +29,10 @@ export interface SendForm {
 const Send: FC = (): JSX.Element => {
 
   const [selectedCoin, setSelectedCoin] = useState<CoinInterface | null>(null);
-  const balance = useCurrentBalance(selectedCoin);
+  const { address } = useWeb3();
+  const coin = useCurrentBalance(selectedCoin);
   const { sanityCoins } = useCoinState();
+  const [complete, setComplete] = useState(false);
   const {
     register,
     handleSubmit,
@@ -44,8 +48,22 @@ const Send: FC = (): JSX.Element => {
     clearErrors
   } = useForm<SendForm>();
 
-  const onSubmit = (data: SendForm) => {
-    alert(JSON.stringify(data));
+  const onSubmit = async (data: SendForm) => {
+    try {
+      const amount = data.amount.toString().concat('000000000000000000')
+      const response = await coin.module.transfer(
+        data.address,
+        amount
+      );
+      // console.log(response);
+      setComplete(true);
+      setTimeout(() => {
+        setComplete(false);
+      }, 5000);
+    }
+    catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -59,7 +77,7 @@ const Send: FC = (): JSX.Element => {
             {...register('amount', {
               required: true,
               onChange: () => clearErrors('amount'),
-              max: +balance?.displayValue ?? 0,
+              max: coin?.balance?.displayValue ?? 0,
               min: 0
             })}
             style={{
@@ -125,8 +143,23 @@ const Send: FC = (): JSX.Element => {
           }
         </div>
         <div className="button">
-          <button type="submit">
-            {isSubmitting ? 'Sending...' : 'Send'}
+          <button
+            type="submit"
+            disabled={complete || isSubmitting}
+            className={classNames({
+              complete
+            })}
+          >
+            {complete ?
+              <>
+                Complete
+                <Icon name='check' />
+              </>
+              :
+              <>
+                {isSubmitting ? 'Sending...' : 'Send'}
+              </>
+            }
           </button>
         </div>
         <div className="balance">
@@ -139,7 +172,7 @@ const Send: FC = (): JSX.Element => {
           </div>
           <div className="right">
             <span>
-              {balance ? balance.displayValue : 'N/A'}
+              {coin?.balance?.displayValue ?? 'N/A'}
               {` ${selectedCoin?.symbol ?? 'XX'}`}
             </span>
           </div>
